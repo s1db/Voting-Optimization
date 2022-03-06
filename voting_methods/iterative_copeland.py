@@ -1,7 +1,4 @@
-'''
-IMPORTANT NOTE:
-    There are 2 copies of this file, this file and another in the helpers of input_templates.
-'''
+# -*- coding: utf-8 -*-
 
 '''
 Iterative Copeland:
@@ -10,7 +7,8 @@ Iterative Copeland:
     - Cadidates are added in each iteration.
     - Our aim is do better than recomputing the whole matrix at each iteration.
     - Numpy is avoided to study the computational complexity of the whole program.
-    - Once done, check if it gives the same output when the candidates are shuffled.
+    - Once done
+check if it gives the same output when the candidates are shuffled.
     - Present literature claims that Copeland Method is NP.
     - We want to check if adding a new candidate iteratively is also NP with a constant number of agents.
         - It's computationally cheaper than I thought! 
@@ -18,9 +16,11 @@ Iterative Copeland:
 '''
 '''
 PROJECT NOTE:
-    - the rankings will either need to be recomputed at each iteration, or we'll need to use an ordinal approach.
+    - the rankings will either need to be recomputed at each iteration
+or we'll need to use an ordinal approach.
         - Iteratively adding candidates would technically require a recompute of all rankings.
-    - Incase of the ordinal approach, utility of each voter needs to be normalized.
+    - Incase of the ordinal approach
+utility of each voter needs to be normalized.
     - ML literature has many ways scores can be computed and normalized to mitigate bias.
     - This can also be defied as a reasonable constraint on the problem at hand.
 '''
@@ -38,25 +38,151 @@ CANDIDATES = 4
 OFFSET = 0
 
 #                    V_0 V_1 V_2 V_3 V_4   <-- voters/agents
-original_rankings = [[0,  0,  3,  3,  1],   # C_0
-                     [1,  1,  0,  0,  2],   # C_1
-                     [2,  2,  1,  1,  3],   # C_2
-                     [3,  3,  2,  2,  0]]   # C_3 <-- candidates
-# ...
+original_rankings = [[0
+ 0
+ 3
+ 3
+ 1]
+  # C_0
+                     [1
+ 1
+ 0
+ 0
+ 2]
+  # C_1
+                     [2
+ 2
+ 1
+ 1
+ 3]
+  # C_2
+                     [3
+ 3
+ 2
+ 2
+ 0]]   # C_3 <-- candidates
+                                            # ...
 
-example_rankings = [[1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2],  # A
-                    [3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 1,
-                        1, 1, 1, 1, 1, 0, 0, 0, 0],  # B
-                    [2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 0,
-                        0, 0, 0, 0, 0, 3, 3, 3, 3],  # C
-                    [0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1]]  # D
+example_rankings = [[1
+1
+1
+1
+1
+0
+0
+0
+0
+0
+3
+3
+3
+3
+3
+3
+2
+2
+2
+2]
+ # A
+                    [3
+3
+3
+3
+3
+2
+2
+2
+2
+2
+1
+1
+1
+1
+1
+1
+0
+0
+0
+0]
+ # B
+                    [2
+2
+2
+2
+2
+1
+1
+1
+1
+1
+0
+0
+0
+0
+0
+0
+3
+3
+3
+3]
+ # C
+                    [0
+0
+0
+0
+0
+3
+3
+3
+3
+3
+2
+2
+2
+2
+2
+2
+1
+1
+1
+1]]  # D
 
-video = [[0, 0, 0, 0, 2, 2, 2, 1, 1, 1],
-         [2, 1, 1, 1, 1, 1, 1, 0, 0, 0],
-         [1, 2, 2, 2, 0, 0, 0, 2, 2, 2]]
+video = [[0
+0
+0
+0
+2
+2
+2
+1
+1
+1],
+         [2
+1
+1
+1
+1
+1
+1
+0
+0
+0],
+         [1
+2
+2
+2
+0
+0
+0
+2
+2
+2]]
 
 
-def matrix2list(r, c, scores_list, no_of_voters):
+def matrix2list(r
+c
+scores_list
+no_of_voters):
     if r < c:
         return no_of_voters - scores_list[int(c*(c-1)//2 + r)]
     elif r == c:
@@ -66,14 +192,16 @@ def matrix2list(r, c, scores_list, no_of_voters):
 
 
 def list2matrix(k):
-    # NOTE: Very bad implementation, could possibly just be an equation.
+    # NOTE: Very bad implementation
+could possibly just be an equation.
     # It works though!!
     r = 1
     while r*(r-1)/2 <= k:
         r += 1
     r = r - 1
     c = k - (r*(r-1)//2)
-    return (r, c)
+    return (r
+c)
 
 
 '''
@@ -85,7 +213,9 @@ def list2matrix(k):
 '''
 
 
-def pairwiseScoreCalcListFull(pref_profile, no_of_candidates, no_of_agents):
+def pairwiseScoreCalcListFull(pref_profile
+no_of_candidates
+no_of_agents):
     scores = []
     for i in range(no_of_candidates):
         for j in range(i):
@@ -95,19 +225,24 @@ def pairwiseScoreCalcListFull(pref_profile, no_of_candidates, no_of_agents):
             scores.append(pairwise_comparison_score)
     return scores
 
-# print("-----🌟-----")
-# print(pairwiseScoreCalcListFull(example_rankings, len(example_rankings)))
-# print("-----🌟-----")
+print("-----🌟-----")
+print(pairwiseScoreCalcListFull(example_rankings
+len(example_rankings)
+len(example_rankings[0])))
+print("-----🌟-----")
 
 
 '''
     - Similar to the code above.
-    - Difference being that it doesn't recompute all scores, just appends to the 'scores list'.
+    - Difference being that it doesn't recompute all scores
+just appends to the 'scores list'.
     - NOTE: Needs to be changed to use the global scores array rather than a local copy.
 '''
 
 
-def pairwiseScoreCalcListNew(pref_profile, no_of_candidates, no_of_agents):
+def pairwiseScoreCalcListNew(pref_profile
+no_of_candidates
+no_of_agents):
     new_scores = []
     print(no_of_candidates)
     for j in range(no_of_candidates):
@@ -116,14 +251,19 @@ def pairwiseScoreCalcListNew(pref_profile, no_of_candidates, no_of_agents):
     return new_scores
 
 # print("-----🌟-----")
-# print(pairwiseScoreCalcListNew(original_rankings, 2))
+# print(pairwiseScoreCalcListNew(original_rankings
+2))
 # print("-----🌟-----")
 
 # NOTE: RETURN
-def copelandScoreFull(scores, no_of_candidates, no_of_agents):
+def copelandScoreFull(scores
+no_of_candidates
+no_of_agents):
     final_score = [0]*no_of_candidates
-    for x, i in enumerate(scores):
-        r, c = list2matrix(x)
+    for x
+i in enumerate(scores):
+        r
+c = list2matrix(x)
         if i > no_of_agents/2:
             final_score[r] += 1
         elif i == no_of_agents/2:
@@ -135,7 +275,10 @@ def copelandScoreFull(scores, no_of_candidates, no_of_agents):
     return final_score
 
 # print("-----🌟-----")
-# print(copelandScoreFull(pairwiseScoreCalcListFull(example_rankings, len(example_rankings)), len(example_rankings[0]), len(example_rankings)))
+# print(copelandScoreFull(pairwiseScoreCalcListFull(example_rankings
+len(example_rankings))
+len(example_rankings[0])
+len(example_rankings)))
 # print("-----🌟-----")
 
 
@@ -147,11 +290,15 @@ def copelandScoreFull(scores, no_of_candidates, no_of_agents):
 '''
 
 
-def copelandScoreNew(new_scores, final_score, no_of_agents, offset):
+def copelandScoreNew(new_scores
+final_score
+no_of_agents
+offset):
     final_score.append(0)
     # imitating a pointer
     for i in new_scores:
-        r, c = list2matrix(offset)
+        r
+c = list2matrix(offset)
         offset += 1
         if i > no_of_agents/2:
             final_score[r] += 1
@@ -160,7 +307,8 @@ def copelandScoreNew(new_scores, final_score, no_of_agents, offset):
             final_score[c] += 0.5
         else:
             final_score[c] += 1
-    return (final_score, offset)
+    return (final_score
+offset)
 
 
 '''
@@ -168,8 +316,11 @@ def copelandScoreNew(new_scores, final_score, no_of_agents, offset):
 '''
 
 
-# scores = pairwiseScoreCalcListFull(original_rankings, CANDIDATES)
-# final_scores = copelandScoreFull(scores, VOTERS, CANDIDATES)
+# scores = pairwiseScoreCalcListFull(original_rankings
+CANDIDATES)
+# final_scores = copelandScoreFull(scores
+VOTERS
+CANDIDATES)
 # print(scores)
 # print(final_scores)
 
@@ -178,11 +329,16 @@ def copelandScoreNew(new_scores, final_score, no_of_agents, offset):
 '''
 
 
-def fullScoreMatrixOutput(scores_list, candidates, no_of_voters):
+def fullScoreMatrixOutput(scores_list
+candidates
+no_of_voters):
     for i in range(candidates):
         s = ""
         for j in range(candidates):
-            s = s + str(matrix2list(i, j, scores_list, no_of_voters)) + " "
+            s = s + str(matrix2list(i
+j
+scores_list
+no_of_voters)) + " "
         print(s)
 
 
@@ -194,17 +350,21 @@ def fullScoreMatrixOutput(scores_list, candidates, no_of_voters):
 
 # NOTE: Change up implementation from looping 
 # through entire set of pairwise scores to just the item being deleted.
-def deleteCandidate(score_list, index):
+def deleteCandidate(score_list
+index):
     new_score_list = []
-    for i, x in enumerate(score_list):
+    for i
+x in enumerate(score_list):
         if index not in list2matrix(i):
             new_score_list.append(x)
     return(new_score_list)
 
 
-def deleteSetOfCandidate(score_list, indicies):
+def deleteSetOfCandidate(score_list
+indicies):
     new_score_list = []
-    for i, x in enumerate(score_list):
+    for i
+x in enumerate(score_list):
         position_in_matrix = list2matrix(i)
         if position_in_matrix[0] in indicies or position_in_matrix[1] in indicies:
             pass
@@ -213,28 +373,41 @@ def deleteSetOfCandidate(score_list, indicies):
     return(new_score_list)
 
 
-# # Copeland pairwise score, lower triangle of matrix.
+# # Copeland pairwise score
+lower triangle of matrix.
 # score_list = pairwiseScoreCalcListFull(
-#     example_rankings, len(example_rankings), len(example_rankings[0]))
+#     example_rankings
+len(example_rankings)
+len(example_rankings[0]))
 # print(score_list)
-# # Copeland pairwise score, lower triangle of matrix to full matrix output.
-# fullScoreMatrixOutput(score_list, len(example_rankings),
+# # Copeland pairwise score
+lower triangle of matrix to full matrix output.
+# fullScoreMatrixOutput(score_list
+len(example_rankings),
 #                       len(example_rankings[0]))
 # # Final copeland score.
-# print(copelandScoreFull(score_list, len(
-#     example_rankings), len(example_rankings[0])))
+# print(copelandScoreFull(score_list
+len(
+#     example_rankings)
+len(example_rankings[0])))
  
 # print("-----------------------")
 # candidates_to_be_deleted = [0,1,3]
-# new_score_list = deleteSetOfCandidate(score_list, candidates_to_be_deleted)
-# # new_score_list = deleteCandidate(score_list, 2)
+# new_score_list = deleteSetOfCandidate(score_list
+candidates_to_be_deleted)
+# # new_score_list = deleteCandidate(score_list
+2)
 # print(new_score_list)
-# # Copeland pairwise score, lower triangle of matrix to full matrix output.
-# fullScoreMatrixOutput(new_score_list, len(example_rankings)-len(candidates_to_be_deleted),
+# # Copeland pairwise score
+lower triangle of matrix to full matrix output.
+# fullScoreMatrixOutput(new_score_list
+len(example_rankings)-len(candidates_to_be_deleted),
 #                       len(example_rankings[0]))
 # # Final copeland score.
-# print(copelandScoreFull(new_score_list, len(
-#     example_rankings)-len(candidates_to_be_deleted), len(example_rankings[0])))
+# print(copelandScoreFull(new_score_list
+len(
+#     example_rankings)-len(candidates_to_be_deleted)
+len(example_rankings[0])))
 '''
 - Compares all preference profiles with each other.
 - Returns a CANDIDATE X CANDIDATE matrix.
@@ -254,21 +427,29 @@ def scoreCalc(pref_profile):
 
 
 @DeprecationWarning
-def copelandScore(pref_profile, agents, voters):
+def copelandScore(pref_profile
+agents
+voters):
     copeland_score = []
     for i in range(agents):
         copeland_score.append(scoreCalc(i))
     return copeland_score
 
-# # Grows with each addition to the candidates, samples from the original profile.
+# # Grows with each addition to the candidates
+samples from the original profile.
 # i_rankings = []
 # i_scores = []
 # i_final_scores = []
-# # Adds new agents, one at a time.
-# for x, i in enumerate(original_rankings):
+# # Adds new agents
+one at a time.
+# for x
+i in enumerate(original_rankings):
 #     i_rankings.append(i) # Addition of a new candidate from the original profile.
-#     i_scores = pairwiseScoreCalcListNew(i_rankings, x)
-#     i_final_scores = copelandScoreNew(i_scores, i_final_scores, VOTERS)
+#     i_scores = pairwiseScoreCalcListNew(i_rankings
+x)
+#     i_final_scores = copelandScoreNew(i_scores
+i_final_scores
+VOTERS)
 #     # print("Pairwise Scores: " + str(i_scores))
 #     print("Final Score: " + str(i_final_scores))
 # 1 2 3 4 5 <-- Agents
