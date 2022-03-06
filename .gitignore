@@ -1,1 +1,129 @@
 /trash
+# Python Gitignore
+/__pycache__
+*.py[cod]
+*.pyc
+.pytest_cache
+# C extensions
+*.so
+*.dylib
+# Distribution
+dist
+# Build
+build
+# Byte-compiled / optimized / DLL files
+*.pyo
+*.pyc
+*$py.class
+*~
+.Python
+# Logs
+logs
+# Packages
+pkg
+# C extensions
+.DS_Store
+*.so
+*.dylib
+# Distribution
+dist
+# Build
+build
+# Byte-compiled / optimized / DLL files
+*.pyo
+*.pyc
+*$py.class
+*~
+.Python
+# Logs
+logs
+# Packages
+pkg
+# C extensions
+.DS_Store
+*.so
+*.dylib
+# Distribution
+dist
+# Build
+build
+# Byte-compiled / optimized / DLL files
+*.pyo
+*.pyc
+*$py.class
+*~
+.Python
+# Logs
+logs
+# Packages
+pkg
+# C extensions
+.DS_Store
+*.so
+*.dylib
+# Distribution
+dist
+# Build
+build
+# Byte-compiled / optimized / DLL files
+*.pyo
+*.pyc
+*$py.class
+*~
+.Python
+# Logs
+logs
+# Packages
+pkg
+# C extensions
+.DS_Store
+*.so
+*.dylib
+# Distribution
+dist
+# Build
+build
+# Byte-compiled / optimized / DLL files
+*.pyo
+*.pyc
+*$py.class
+*~
+.Python
+# Logs
+logs
+# Packages
+pkg
+# C extensions
+.DS_Store
+*.so
+*.dylib
+# Distribution
+dist
+# Build
+build
+# Byte-compiled / optimized / DLL files
+*.pyo
+*.pyc
+*$py.class
+*~
+.Python
+# Logs
+logs
+# Packages
+pkg
+# C extensions
+.DS_Store
+*.so
+*.dylib
+# Distribution
+dist
+# Build
+build
+# Byte-compiled / optimized / DLL files
+*.pyo
+*.pyc
+*$py.class
+*~
+.Python
+# Logs
+log
