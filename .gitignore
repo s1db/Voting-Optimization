@@ -1,4 +1,5 @@
 /trash
+
 # Python Gitignore
 /__pycache__
 *.py[cod]

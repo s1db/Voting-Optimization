@@ -1,8 +1,8 @@
 import numpy as np
-import voting_methods.copeland as c
+import voting_methods.schulze as s
 
 def load_files():
-    files = ["148_utilities_wo_56.csv"]
+    files = ["148_utilities_wo_56.csv", "149_utilities_wo_56.csv"]
     ballots = []
     for file in files:
         ballot = np.loadtxt("data/"+file, delimiter=',')
@@ -15,5 +15,5 @@ if __name__ == "__main__":
     print(ballots.shape)
     candidates = ballots.shape[0]
     voters = ballots.shape[1]
-    s_set = c.Copeland(ballots, candidates, voters)
+    s_set = s.Schulze(ballots, candidates, voters)
     # print(s_set)
