@@ -64,12 +64,12 @@ constraint forall(i in studentRanksProjectAt )(i !=5 /\ i !=6);
 var int: highest_rank = max(studentRanksProjectAt);
 constraint allocation_sum > 140;
 constraint allocation_sum < 155;
-% var int: num_4_occourances = count(studentRanksProjectAt, 4);
+var int: num_occourances = count(studentRanksProjectAt, 1)+10*count(studentRanksProjectAt, 2)+1000*count(studentRanksProjectAt, 3)+10000*count(studentRanksProjectAt, 4) + 1000000*count(studentRanksProjectAt, 5) + 100000000*count(studentRanksProjectAt, 6);
 % constraint count(studentRanksProjectAt, 3) = 1;
 
 solve 
-% minimize num_4_occourances;
-maximize sumed;
+minimize num_occourances;
+% maximize sumed;
 % minimize highest_rank;
 % satisfy;
 

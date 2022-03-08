@@ -41,13 +41,13 @@ def all_sol(model, data, utility_sum_constraint):
 # final_allocations = []
 # final_utilities = []
 # final_ranks = []
-contrained_utilities = range(150, 155)
+contrained_utilities = [156]
 for i in contrained_utilities:
     allocations, utilities, ranks = all_sol(project_allocation, "./models/datafiles/socs_2015.dzn", i)
     # final_allocations.append(allocations)
     # final_utilities.append(utilities)
     # final_ranks.append(ranks)
-    print(i, len(allocations), len(utilities), len(ranks), len(allocations[0]), len(utilities[0]), len(ranks[0]))
+    print(i, len(allocations), len(utilities), len(ranks))
     final_allocations = np.asarray(allocations)
     np.savetxt(str(i)+"_allocations_wo_56.csv", allocations,fmt="%s", delimiter=",")
     final_utilities = np.asarray(utilities)
