@@ -56,20 +56,24 @@ minPerProject = 0; maxPerProject= 1;
 constraint global_cardinality_low_up ( studentToLecturer, [l_ | l_ in LECTURER], [minPerLecturer | l_ in LECTURER], maxPerLecturer); 
 constraint global_cardinality_low_up ( studentToProject, [p_ | p_ in PROJECT], [minPerProject | p_ in PROJECT], [maxPerProject | p_ in PROJECT]);
 
-ann: random_dec_vars = int_search(studentToProject, input_order, indomain_random, complete);
 var int: sumed = sum(util_per_agent);
 var int: allocation_sum = sum(studentRanksProjectAt);
 
-constraint forall(i in studentRanksProjectAt )(i !=5 /\ i !=6);
-var int: highest_rank = max(studentRanksProjectAt);
-constraint ( 140 <= allocation_sum /\ allocation_sum <= 160);
-var int: num_occourances = count(studentRanksProjectAt, 1)+100*count(studentRanksProjectAt, 2)+10000*count(studentRanksProjectAt, 3)+1000000*count(studentRanksProjectAt, 4) + 1000000*count(studentRanksProjectAt, 5) + 100000000*count(studentRanksProjectAt, 6);
+constraint forall(i in studentRanksProjectAt )(i !=7 /\ i !=8);
+% var int: highest_rank = max(studentRanksProjectAt);
+% constraint ( 140 <= allocation_sum /\ allocation_sum <= 160);
+% constraint ((count(studentRanksProjectAt, 1) == 23 /\ count(studentRanksProjectAt, 2)) == 38 /\ (count(studentRanksProjectAt, 2) >= count(studentRanksProjectAt, 3)));
+% constraint (count(studentRanksProjectAt, 1) == 23 /\ count(studentRanksProjectAt, 2) == 38 /\ count(studentRanksProjectAt, 3) == 15);
+% var int: num_occourances = count(studentRanksProjectAt, 1)+100*count(studentRanksProjectAt, 2)+10000*count(studentRanksProjectAt, 3)+1000000*count(studentRanksProjectAt, 4) + 1000000*count(studentRanksProjectAt, 5) + 100000000*count(studentRanksProjectAt, 6);
 % constraint count(studentRanksProjectAt, 3) = 1;
-
+% constraint allocation_sum = 148;
+% constraint studentToProject != [20, 77, 70, 61, 69, 79, 8, 44, 14, 40, 60, 107, 81, 51, 13, 53, 85, 66, 87, 34, 37, 64, 47, 7, 35, 11, 98, 55, 125, 103, 121, 119, 88, 31, 56, 91, 78, 9, 80, 63, 110, 65, 75, 84, 89, 58, 16, 96, 100, 117, 27, 54, 111, 99, 46, 5, 36, 6, 39, 59, 104, 92, 67, 38, 122, 97, 30, 120, 2, 73, 101, 115, 49, 68, 118, 83];
+% constraint studentToProject != [20, 77, 70, 61, 69, 79, 8, 44, 14, 40, 60, 107, 81, 51, 13, 53, 85, 66, 87, 34, 37, 64, 47, 7, 35, 11, 98, 55, 125, 103, 121, 119, 88, 31, 56, 91, 78, 9, 80, 63, 110, 65, 75, 84, 89, 58, 16, 96, 100, 117, 27, 54, 111, 99, 86, 5, 36, 6, 39, 59, 104, 92, 67, 38, 122, 97, 30, 120, 2, 46, 101, 115, 49, 68, 118, 83];
+% constraint studentToProject != [20, 77, 70, 61, 69, 79, 8, 44, 14, 123, 60, 107, 81, 51, 13, 53, 85, 66, 87, 34, 37, 64, 47, 7, 35, 11, 98, 55, 125, 103, 121, 119, 88, 31, 56, 91, 78, 9, 80, 63, 110, 65, 75, 84, 89, 58, 16, 96, 100, 117, 27, 54, 111, 99, 46, 5, 36, 6, 39, 59, 104, 40, 67, 38, 122, 97, 30, 120, 2, 73, 101, 115, 49, 68, 118, 83];
 solve 
-minimize num_occourances;
-% maximize sumed;
-% minimize highest_rank;
+% minimize num_occourances;
+% solve :: int_search(studentRanksProjectAt, first_fail, indomain_max)
+maximize sumed;
 % satisfy;
 
-output [" student to project: ",show(studentToProject), "\n student ranks project at: ", show(studentRanksProjectAt), "\n utility sum:", show(sumed),"\n allocation sum:", show(allocation_sum), "\n count of 1: ", show(count(studentRanksProjectAt, 1)),"\n count of 2: ", show(count(studentRanksProjectAt, 2)),"\n count of 3: ", show(count(studentRanksProjectAt, 3)), "\n count of 4: ", show(count(studentRanksProjectAt, 4)), "\n count of 5: ", show(count(studentRanksProjectAt, 5)), "\n count of 6: ", show(count(studentRanksProjectAt, 6)),];
+output [" student to project: ",show(studentToProject), "\n student ranks project at: ", show(studentRanksProjectAt), "\n utility sum:", show(sumed),"\n allocation sum:", show(allocation_sum), "\n count of 1: ", show(count(studentRanksProjectAt, 1)),"\n count of 2: ", show(count(studentRanksProjectAt, 2)),"\n count of 3: ", show(count(studentRanksProjectAt, 3)), "\n count of 4: ", show(count(studentRanksProjectAt, 4)), "\n count of 5: ", show(count(studentRanksProjectAt, 5)), "\n count of 6: ", show(count(studentRanksProjectAt, 6)),"\n count of 7: ", show(count(studentRanksProjectAt, 7)),"\n count of 8: ", show(count(studentRanksProjectAt, 8)),];

@@ -1,9 +1,15 @@
-import minizinc
 import numpy as np
+
 projects_without_index = [4708, 4709, 4710, 4711, 4712, 4465, 4484, 4486, 4487, 4671, 4675, 4607, 4604, 4597, 4549, 4554, 4543, 4544, 4685, 4458, 4459, 4698, 4699, 4700, 4701, 4702, 4438, 4413, 4527, 4528, 4566, 4617, 4618, 4601, 4434, 4435, 4436, 4437, 4449, 4450, 4687, 4688, 4689, 4690, 4703, 4704, 4705, 4706, 4431, 4426, 4427, 4428, 4394, 4395, 4396, 4397, 4398, 4399, 4672, 4673, 4674, 4676, 4722, 4588, 4589, 4662, 4643, 4644, 4646, 4647, 4648, 4653, 4654, 4655, 4659, 4660, 4661, 4550, 4545, 4546, 4547, 4548, 4511, 4430, 4507, 4508, 4632, 4634, 4670, 4696, 4697, 4656, 4649, 4650, 4651, 4652, 4667, 4668, 4669, 4608, 4609, 4610, 4605, 4606, 4720, 4663, 4664, 4414, 4415, 4416, 4445, 4539, 4623, 4587, 4590, 4592, 4593, 4645, 4635, 4625, 4626, 4627, 4628, 4629, 4571, 4572, 4573, 4600, 4683, 4515, 4516, 4517, 4518, 4410, 4509, 4510, 4461, 4567, 4613, 4429, 4540, 4541, 4542, 4538, 4658, 4665, 4666, 4611, 4612, 4512, 4513, 4514, 4526, 4520, 4521, 4522, 4574, 4575, 4594, 4595, 4684, 4680, 4682, 4565, 4523, 4524, 4525, 4439, 4440, 4441, 4442, 4443, 4568, 4569, 4624, 4619, 4620, 4621, 4622, 4468, 4585, 4586, 4657, 4631, 4633, 4707, 4723, 4532, 4533, 4534, 4535, 4536, 4537, 4467]
 project_supervisors_map = ["Alice Miller", "Alice Miller", "Alice Miller", "Alice Miller", "Alice Miller", "Alvis Fong", "Christos Anagnostopoulos", "Christos Anagnostopoulos", "Christos Anagnostopoulos", "Baharak Rastegari", "Catherine Higham", "Craig Macdonald", "Craig Macdonald", "Colin Perkins", "Colin Perkins", "Colin Perkins", "Colin Perkins", "Colin Perkins", "Colin Perkins", "David F Manlove", "David F Manlove", "Dimitrios Pezaros", "Dimitrios Pezaros", "Dimitrios Pezaros", "Dimitrios Pezaros", "Dimitrios Pezaros", "Gethin Norman", "Gethin Norman", "Gethin Norman", "Gethin Norman", "Gethin Norman", "Gethin Norman", "Gethin Norman", "Helen C Purchase", "Helen C Purchase", "Helen C Purchase", "Helen C Purchase", "Helen C Purchase", "Inah Omoronyia", "Inah Omoronyia", "Inah Omoronyia", "Inah Omoronyia", "Inah Omoronyia", "Inah Omoronyia", "Joemon Jose", "Joemon Jose", "Joemon Jose", "Joemon Jose", "Joemon Jose", "Joemon Jose", "Joemon Jose", "Joemon Jose", "Chris Johnson", "Chris Johnson", "Chris Johnson", "Chris Johnson", "Chris Johnson", "Chris Johnson", "Joe Maguire", "Joe Maguire", "Joe Maguire", "Joe Maguire", "Joe Maguire", "John Rooksby", "John Rooksby", "Jeremy Singer", "John T O'Donnell", "John T O'Donnell", "John T O'Donnell", "John T O'Donnell", "John T O'Donnell", "John T O'Donnell", "Julie Williamson", "Julie Williamson", "Julie Williamson", "Julie Williamson", "Julie Williamson", "Leif Azzopardi", "Leif Azzopardi", "Leif Azzopardi", "Leif Azzopardi", "Leif Azzopardi", "Lewis M Mackenzie", "Lewis M Mackenzie", "Lewis M Mackenzie", "Lewis M Mackenzie", "Mary Ellen Foster", "Mary Ellen Foster", "Alistair Morrison", "Natalia Chechina", "Natalia Chechina", "Nikos Ntarmos", "Nikos Ntarmos", "Nikos Ntarmos", "Nikos Ntarmos", "Nikos Ntarmos", "Nikos Ntarmos", "Nikos Ntarmos", "Nikos Ntarmos", "Iadh Ounis", "Iadh Ounis", "Iadh Ounis", "Iadh Ounis", "Iadh Ounis", "Iadh Ounis", "Parvin Asadzadeh Birjandi", "Parvin Asadzadeh Birjandi", "Patrick Prosser", "Patrick Prosser", "Patrick Prosser", "Patrick Prosser", "Patrick Prosser", "Peter Triantafillou", "Peter Triantafillou", "Peter Triantafillou", "Peter Triantafillou", "Peter Triantafillou", "Patrick Maier", "Patrick Maier", "Quintin I Cutts", "Quintin I Cutts", "Quintin I Cutts", "Quintin I Cutts", "Quintin I Cutts", "Roderick Murray-Smith", "Roderick Murray-Smith", "Roderick Murray-Smith", "Roderick Murray-Smith", "Roderick Murray-Smith", "Ron Poet", "Ron Poet", "Ron Poet", "Ron Poet", "Rosanne English", "Rosanne English", "Rosanne English", "Rosanne English", "Rosanne English", "Mattias Rost", "Mattias Rost", "Simon J Gay", "Simon J Gay", "Simon J Gay", "Simon J Gay", "Simon J Gay", "Simon J Gay", "Simon J Gay", "Simon Rogers", "Simon Rogers", "Simon Rogers", "Simon Rogers", "Simon Rogers", "Stephen Brewster", "Stephen Brewster", "Stephen Brewster", "Stephen Brewster", "Stephen Brewster", "Stephen Brewster", "Stephen Brewster", "Stephen Brewster", "Stephen Brewster", "Stephen Brewster", "Stephen Brewster", "Phil Trinder", "Phil Trinder", "Phil Trinder", "Phil Trinder", "Tim Storer", "Tim Storer", "Tim Storer", "Tim Storer", "Tim Storer", "Tim Storer", "Tim Storer", "Alessandro Vinciarelli", "Alessandro Vinciarelli", "Alessandro Vinciarelli", "Alessandro Vinciarelli", "Alessandro Vinciarelli", "Zhengkui Wang", "David White", "David White", "David White", "Wim Vanderbauwhede", "Wim Vanderbauwhede", "Wim Vanderbauwhede", "Wim Vanderbauwhede", "W Paul Cockshott", "W Paul Cockshott", "W Paul Cockshott", "W Paul Cockshott", "W Paul Cockshott", "W Paul Cockshott", "Jianxin Zheng"]
+assert len(projects_without_index) == len(project_supervisors_map)
+project_supervisor_zip = zip(projects_without_index, project_supervisors_map)
+
 supervisors = ["Christos Anagnostopoulos","Parvin Asadzadeh Birjandi","Leif Azzopardi","Stephen Brewster","Natalia Chechina","W Paul Cockshott","Quintin I Cutts","Rosanne English","Alvis Fong","Mary Ellen Foster","Simon J Gay","Catherine Higham","Chris Johnson","Joemon Jose","Craig Macdonald","Lewis M Mackenzie","Joe Maguire","Patrick Maier","David F Manlove","Alice Miller","Alistair Morrison","Roderick Murray-Smith","Gethin Norman","Nikos Ntarmos","John T O'Donnell","Inah Omoronyia","Iadh Ounis","Colin Perkins","Dimitrios Pezaros","Ron Poet","Patrick Prosser","Helen C Purchase","Baharak Rastegari","Simon Rogers","John Rooksby","Mattias Rost","Jeremy Singer","Tim Storer","Peter Triantafillou","Phil Trinder","Wim Vanderbauwhede","Alessandro Vinciarelli","Zhengkui Wang","David White","Julie Williamson","Jianxin Zheng"]
 lecturerMax = [2, 3, 4, 4, 2, 4, 4, 2, 9, 2, 2, 2, 4, 0, 3, 3, 3, 2, 2, 4, 4, 3, 4, 4, 4, 3, 4, 3, 4, 4, 4, 4, 3, 2, 3, 1, 4, 1, 4, 2, 4, 4, 3, 3, 3, 3]
+assert len(supervisors) == len(lecturerMax)
+supervisor_max_zip = zip(supervisors, lecturerMax)
+
 studentProjectRanks = [
     [4594, 4566, 4660, 4654, 4510, 4569], 
     [4592, 4513, 4618, 4539, 4566, 4631], 
@@ -80,7 +86,7 @@ studentProjectRanks = [
     [4646, 4688, 4567, 4410, 4517, 4436], 
     [4606, 4609, 4586, 4664, 4508, 4670], 
     [4670, 4618, 4622, 4660, 4663, 4521], 
-    [4571, 4535, 4708, 4513, 4438, 4662]
+    [4571, 4535, 4708, 4513, 4438, 4662],
 ]
 
 for proj in projects_without_index:
@@ -90,41 +96,48 @@ for proj in projects_without_index:
             inRanked = True
             break
     if inRanked == False:
-        print(proj)
-        index = projects_without_index.index(proj)
-        project_supervisors_map.pop(index)
-        projects_without_index.remove(proj)
-        print(len(project_supervisors_map) == len(projects_without_index))
+        project_supervisor_zip = [(i,j) for i,j in project_supervisor_zip if i != proj]
+
+projects, project2supervisor = zip(*project_supervisor_zip)
+projects = list(projects)
+project2supervisor = list(project2supervisor)
+
+key_projects = {k:v for v, k in enumerate(projects)}
+
+supervisor_key = [project2supervisor.count(v) for v in set(project2supervisor)]
 
 
-key_projects = {k:v for v, k in enumerate(projects_without_index)}
-project_key = {v:k for k, v in enumerate(projects_without_index)}
-print(project_supervisors_map)
-supervisor_key = [project_supervisors_map.count(v) for v in set(project_supervisors_map)]
-for i in supervisors:
-    if i not in set(project_supervisors_map):
-        index = supervisors.index(i)
-        supervisors.pop(index)
-        lecturerMax.pop(index)
-num_projects = len(projects_without_index)
-
-
+num_projects = len(projects)
 student_project_rank = []
 for student in studentProjectRanks:
     all_proj = [num_projects]*num_projects
     for rank, proj in enumerate(student):
-        key = project_key[proj]
+        key = key_projects[proj]
         all_proj[key] = rank+1
     student_project_rank.append(all_proj)
 a = np.array(student_project_rank)
-# a.tofile('preferences.txt',sep=" ", format="%s")
+
 np.savetxt('test.txt', a, fmt="%s", delimiter=", ")
-# print(supervisor_key)
+
 supervisors_list = []
 for i, x in enumerate(supervisor_key):
     supervisors_list.extend([i+1]*x)
-# print(len(supervisor_key))
+print(len(supervisor_key))
 print(supervisors_list)
-print(lecturerMax)
-# for key, value in supervisor_key.items():
-#     supervisors_list.extend([key]*value)
+
+supervisor_max_zip = [(i,j) for i,j in zip(supervisors, lecturerMax) if i in set(project2supervisor)]
+new_sup_max = [j for i,j in supervisor_max_zip]
+print(new_sup_max)
+print(len(new_sup_max))
+# print(lecturerMax)
+
+
+
+
+'''
+
+
+
+
+
+'''

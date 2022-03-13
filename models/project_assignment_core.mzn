@@ -60,10 +60,10 @@ ann: random_dec_vars = int_search(studentToProject, input_order, indomain_random
 var int: sumed = sum(util_per_agent);
 var int: allocation_sum = sum(studentRanksProjectAt);
 
-constraint forall(i in studentRanksProjectAt )(i !=5 /\ i !=6);
+% constraint forall(i in studentRanksProjectAt )(i !=5 /\ i !=6);
 var int: highest_rank = max(studentRanksProjectAt);
-constraint allocation_sum > 140;
-constraint allocation_sum < 155;
+% constraint allocation_sum > 140;
+% constraint allocation_sum < 155;
 % var int: num_4_occourances = count(studentRanksProjectAt, 4);
 % constraint count(studentRanksProjectAt, 3) = 1;
 
