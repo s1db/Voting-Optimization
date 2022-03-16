@@ -2,7 +2,7 @@ import numpy as np
 import voting_methods.copeland as c
 
 def load_files():
-    files = ["134_utilities_wo_56.csv","135_utilities_wo_56.csv","136_utilities_wo_56.csv","137_utilities_wo_56.csv","138_utilities_wo_56.csv","139_utilities_wo_56.csv","140_utilities_wo_56.csv","141_utilities_wo_56.csv","142_utilities_wo_56.csv"]
+    files = ["450_utilities_wo_56.csv", "451_utilities_wo_56.csv", "452_utilities_wo_56.csv", "453_utilities_wo_56.csv", "454_utilities_wo_56.csv", "455_utilities_wo_56.csv", "456_utilities_wo_56.csv", "457_utilities_wo_56.csv", "458_utilities_wo_56.csv", "459_utilities_wo_56.csv", "460_utilities_wo_56.csv"]
     ballots = []
     for file in files:
         # ballot = np.genfromtxt("data/"+file, delimiter=",")[:,:-1]

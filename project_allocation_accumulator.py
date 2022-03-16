@@ -3,10 +3,10 @@ import asyncio
 
 import numpy as np
 
-or_tools = Solver.lookup("or-tools")
+or_tools = Solver.lookup("gurobi")
 project_allocation = Model("./models/project_assignment.mzn")
-instance = Instance(or_tools, project_allocation)
-instance.add_file("./models/datafiles/socs_2015_new.dzn")
+# instance = Instance(or_tools, project_allocation)
+# instance.add_file("./models/datafiles/socs_2015_new.dzn")
 
 def all_sol(model, data, utility_sum_constraint):
     utilities = []
@@ -14,7 +14,7 @@ def all_sol(model, data, utility_sum_constraint):
     ranks = []
     instance = Instance(or_tools, model)
     instance.add_string(f"constraint allocation_sum={utility_sum_constraint};")
-    instance.add_string("constraint forall(i in studentRanksProjectAt)(i !=5 /\ i !=6);")
+    # instance.add_string("constraint forall(i in studentRanksProjectAt)(i !=5 /\ i !=6);")
     instance.add_file(data)
     result = True
     count = 0
@@ -52,9 +52,9 @@ def all_sol(model, data, utility_sum_constraint):
 # final_allocations = []
 # final_utilities = []
 # final_ranks = []
-contrained_utilities = [139,140,141,142]
+contrained_utilities = [460]
 for i in contrained_utilities:
-    allocations, utilities, ranks = all_sol(project_allocation, "./models/datafiles/socs_2015_new.dzn", i)
+    allocations, utilities, ranks = all_sol(project_allocation, "./models/datafiles/2021.dzn", i)
     # # final_allocations.append(allocations)
     # # final_utilities.append(utilities)
     # # final_ranks.append(ranks)

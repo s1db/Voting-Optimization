@@ -66,13 +66,8 @@ constraint forall(i in studentRanksProjectAt )(i !=7 /\ i !=8);
 % constraint (count(studentRanksProjectAt, 1) == 23 /\ count(studentRanksProjectAt, 2) == 38 /\ count(studentRanksProjectAt, 3) == 15);
 % var int: num_occourances = count(studentRanksProjectAt, 1)+100*count(studentRanksProjectAt, 2)+10000*count(studentRanksProjectAt, 3)+1000000*count(studentRanksProjectAt, 4) + 1000000*count(studentRanksProjectAt, 5) + 100000000*count(studentRanksProjectAt, 6);
 % constraint count(studentRanksProjectAt, 3) = 1;
-% constraint allocation_sum = 148;
-% constraint studentToProject != [20, 77, 70, 61, 69, 79, 8, 44, 14, 40, 60, 107, 81, 51, 13, 53, 85, 66, 87, 34, 37, 64, 47, 7, 35, 11, 98, 55, 125, 103, 121, 119, 88, 31, 56, 91, 78, 9, 80, 63, 110, 65, 75, 84, 89, 58, 16, 96, 100, 117, 27, 54, 111, 99, 46, 5, 36, 6, 39, 59, 104, 92, 67, 38, 122, 97, 30, 120, 2, 73, 101, 115, 49, 68, 118, 83];
-% constraint studentToProject != [20, 77, 70, 61, 69, 79, 8, 44, 14, 40, 60, 107, 81, 51, 13, 53, 85, 66, 87, 34, 37, 64, 47, 7, 35, 11, 98, 55, 125, 103, 121, 119, 88, 31, 56, 91, 78, 9, 80, 63, 110, 65, 75, 84, 89, 58, 16, 96, 100, 117, 27, 54, 111, 99, 86, 5, 36, 6, 39, 59, 104, 92, 67, 38, 122, 97, 30, 120, 2, 46, 101, 115, 49, 68, 118, 83];
-% constraint studentToProject != [20, 77, 70, 61, 69, 79, 8, 44, 14, 123, 60, 107, 81, 51, 13, 53, 85, 66, 87, 34, 37, 64, 47, 7, 35, 11, 98, 55, 125, 103, 121, 119, 88, 31, 56, 91, 78, 9, 80, 63, 110, 65, 75, 84, 89, 58, 16, 96, 100, 117, 27, 54, 111, 99, 46, 5, 36, 6, 39, 59, 104, 40, 67, 38, 122, 97, 30, 120, 2, 73, 101, 115, 49, 68, 118, 83];
 solve 
 % minimize num_occourances;
-% solve :: int_search(studentRanksProjectAt, first_fail, indomain_max)
 maximize sumed;
 % satisfy;
 
