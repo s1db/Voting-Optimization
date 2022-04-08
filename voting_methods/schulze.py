@@ -40,16 +40,16 @@ voters_3 = ballot_3.shape[1]
 
 
 
-def Schulze(ballot, candidates, voters):
+def Schulze(dir, ballot, candidates, voters):
     d = pairwise_scores(ballot, candidates)
     p = widest_path(d, candidates)
 
     scores = schulze_scores(p, candidates)
     winners_index = schulze_set(scores)
-    print(scores)
-    print(winners_index)
-    print(scores[winners_index[0]])
-    print("--------------------------------")
+    print("Schulze Scores of Each Candidate: \n", "in schulze_score.txt", scores)
+    np.savetxt(dir+"/schulze_score.txt", scores.T, fmt="%s")
+    print("Winning Solution Score: \n", scores[winners_index[0]])
+    print("----------------------------------------------------------------")
     return winners_index
 
 def widest_path(d, candidates):

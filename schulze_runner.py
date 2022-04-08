@@ -1,20 +1,11 @@
 import numpy as np
 import voting_methods.schulze as s
-
-def load_files():
-    files = [f"{i}_utilities_2020.csv" for i in range(372, 385)]
-    ballots = []
-    for file in files:
-        ballot = np.genfromtxt(file, delimiter=",")[:,:-1]
-        ballots.append(ballot)
-    ballots = np.vstack(ballots)
-    return ballots
+from borda_runner import load_files
 
 if __name__ == "__main__":
-    ballots = load_files()
-    print(ballots.shape)
+    a, ballots = load_files()
+    print("number of solutions and number of students: ", ballots.shape)
     candidates = ballots.shape[0]
     voters = ballots.shape[1]
-    s_set = s.Schulze(ballots, candidates, voters)
-    print(s_set)
-    print(len(s_set))
+    s_set = s.Schulze(a, ballots, candidates, voters)
+    print("winning solution ids: ", s_set)

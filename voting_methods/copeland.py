@@ -1,12 +1,13 @@
 import numpy as np
 
-def Copeland(utility_profile, candidates, voters):
+def Copeland(dir, utility_profile, candidates, voters):
     scores = pairwise_scores(utility_profile, candidates)
     final_score = copeland_score(scores, candidates)
     index_positions = copeland_set(final_score)
-    print(final_score)
-    print(index_positions)
-    print(final_score[index_positions[0]])
+    print("Copeland Scores of Each Candidate: \n", "in copeland_score.txt", final_score)
+    np.savetxt(dir+"/copeland_score.txt", final_score.T, fmt="%s")
+    # print(index_positions)
+    print("Winning Solution Copeland Score: ",final_score[index_positions[0]])
     return index_positions
 
 def copeland_set(scores):
