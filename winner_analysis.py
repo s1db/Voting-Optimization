@@ -1,21 +1,33 @@
 import numpy as np
 from collections import Counter
-
+from os import walk
+from borda_runner import load_files
 
 def load_files():
-    files = [f"{i}_ranks_similar_1.csv" for i in range(235, 247)]
+    a = input("Enter the name of instance: ")
+    # files = [f"{i}_utilities_random_1.csv" for i in range(162, 170)]
+    files = []
+    mypath = a + "/data/"
+    for (dirpath, dirnames, filenames) in walk(mypath):
+        for filename in filenames:
+            if "ranks" in filename:
+                files.append(filename)
+        break
+    files = sorted(files)
+    print("file names: ", files)
     ballots = []
     for file in files:
-        ballot = np.genfromtxt(file, delimiter=",")[:,:-1]
+        ballot = np.genfromtxt(mypath + file, delimiter=",")[:,:-1]
         ballots.append(ballot)
     ballots = np.vstack(ballots)
-    return ballots
+    return a, ballots
 
 if __name__ == "__main__":
-    ballots = load_files()
-    print(ballots.shape)
-    for i in range(8):
-        print(Counter(ballots[i,:]))
+
+    dir, ballots = load_files()
+    i = input("Enter the solution ID: ")
+    i = int(i)
+    print(Counter(ballots[i,:]), ballots[i,:].sum())
     # print(Counter(ballots[152,:]), sum(ballots[152,:]))
     # print(Counter(ballots[119,:]))
     # print(Counter(ballots[121,:]))
